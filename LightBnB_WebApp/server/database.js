@@ -30,9 +30,10 @@ const getUserWithEmail = function(email) {
 
   return pool.query(text, values)
   .then(res => res.rows[0])
-  .catch(error => console.error('User Null', error.stack))
-}
+  .catch(error => console.error('User Null', error.stack));
+};
 exports.getUserWithEmail = getUserWithEmail;
+
 
 /**
  * Get a single user from the database given their id.
@@ -51,7 +52,7 @@ const getUserWithId = function(id) {
   .then(res => res.rows[0])
   .catch(error => console.error('User Null', error.stack));
 
-}
+};
 exports.getUserWithId = getUserWithId;
 
 
@@ -81,15 +82,12 @@ const addUser =  function(user) {
   user.id = userId;
   users[userId] = user;
   return Promise.resolve(user);*/
-}
+};
 exports.addUser = addUser;
 
 /// Reservations
 
 /** 
- * getAllReservations function uses lightbnb database with SQL queries
- * This function accepts a guest_id, limits the properties to 10 and returns a promise.
- * The promise should resolve reservations for that user.
  * Get all reservations for a single user.
  * @param {string} guest_id The id of the user.
  * @return {Promise<[{}]>} A promise to the reservations.
@@ -110,7 +108,7 @@ const getAllReservations = function(guest_id, limit = 10) {
   return pool.query(text, values)
   .then(res => res.rows)
   .catch(err => console.error("Error", err.stack));
-}
+};
 exports.getAllReservations = getAllReservations;
 
 /// Properties
@@ -177,13 +175,12 @@ exports.getAllReservations = getAllReservations;
   ORDER BY cost_per_night
   LIMIT $${queryParams.length};
   `;
-  // 5
+  
   console.log(queryString, queryParams);
-
   // 6
   return pool.query(queryString, queryParams)
   .then(res => res.rows);
-}
+};
 exports.getAllProperties = getAllProperties;
 
 
@@ -206,10 +203,7 @@ const addProperty = function(property) {
 
   return pool.query(text, values)
   .then(res => res.rows[0])
-  .catch(err => console.error('Error', err.stack))
-  // const propertyId = Object.keys(properties).length + 1;
-  // property.id = propertyId;
-  // properties[propertyId] = property;
-  // return Promise.resolve(property);
-}
+  .catch(err => console.error('Error', err.stack));
+  
+};
 exports.addProperty = addProperty;
